@@ -1,0 +1,6 @@
+Manager 1233 Vasea 1200 10
+WageEmployee 1223 Andrey 2000 10
+SalesPerson 1122 Alla 1050 100 1
+Manager 1112 Miri 3000 10
+WageEmployee 1113 Serj 2500 10
+SalesPerson 2211 Irina 2300 60 100 2

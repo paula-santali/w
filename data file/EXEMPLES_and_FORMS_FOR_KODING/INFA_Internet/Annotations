@@ -1,0 +1,100 @@
+Аннотации в Java
+Аннотации хранят информацию о коде программы, но сами не являются частью программы.
+Аннотации можно использовать для отслеживания ошибок, устранения предупреждений, генерации кода, XML файлов, и т.п. 
+Аннотации могут описывать объявление классов, полей, методов и других элементов программы. Аннотации могут включать в себя именованные или неименованные значения:
+
+@Author(
+   name = "Benjamin Franklin",
+   date = "3/27/2003"
+)
+class MyClass() { }
+или
+
+@SuppressWarnings(value = "unchecked")
+void myMethod() { }
+Если в аннотации только один элемент «value», то можно опустить его имя, тогда запись будет выглядеть так:
+
+@SuppressWarnings("unchecked")
+void myMethod() { }
+Также, если у аннотации нет никаких значений, то можно опустить круглые скобки:
+
+@Override
+void mySuperMethod() { }
+Документация
+Предположим, определения класса начинается с комментариев, содержащих важную информацию:
+
+public class Generation3List extends Generation2List {
+ 
+   // Author: John Doe
+   // Date: 3/17/2002
+   // Current revision: 6
+   // Last modified: 4/12/2004
+   // By: Jane Doe
+   // Reviewers: Alice, Bill, Cindy
+ 
+   // class code goes here
+ 
+}
+Для того чтобы записать то же самое в виде аннотации, нам необходимо сначала определить тип аннотации (annotation type):
+
+@interface ClassPreamble {
+   String author();
+   String date();
+   int currentRevision() default 1;
+   String lastModified() default "N/A";
+   String lastModifiedBy() default "N/A";
+   String[] reviewers();
+}
+Объявление выглядит как объявление интерфейса, за исключением предшествующего ключевому слову interface символа @. 
+Тело аннотации содержит описание элементов аннотации, которое выглядит как описание методов. Обратите внимание, что можно задать значения по умолчанию. 
+Объявив наш тип аннотации мы можем его использовать:
+
+@ClassPreamble (
+   author = "John Doe",
+   date = "3/17/2002",
+   currentRevision = 6,
+   lastModified = "4/12/2004",
+   lastModifiedBy = "Jane Doe",
+   // Note array notation
+   reviewers = {"Alice", "Bob", "Cindy"}
+)
+public class Generation3List extends Generation2List {
+// код класса
+}
+Для того, чтобы наши аннотации появлялись в в документации, создаваемой Javadoc, необходимо перед объявлением @ClassPreamble добавить аннотацию @Documented. 
+Для этого необходимо подключить библиотеку java.lang.annotation :
+
+// для использования @Documented
+import java.lang.annotation.*;
+ 
+@Documented
+@interface ClassPreamble {
+ 
+   // Annotation element definitions
+Аннотации, используемые компилятором
+Существует 3 зарезервированных типа аннотаций в Java: @Deprecated, @Override, и @SuppressWarnings.
+
+@Deprecated - аннотация @Deprecated помечает объект как устаревший, это означает, что его не следует использовать.
+Компилятор создает предупреждение, если программа использует методы, поля или классы, помеченные как устаревшие.
+Если метод устарел он должен быть задокументирован с помощью тега Javadoc @deprecated, как в следующем примере:
+
+// Javadoc comment
+    /**
+     * @deprecated
+     * explanation of why it
+     * was deprecated
+     */
+    @Deprecated
+    static void deprecatedMethod() { }
+@Override - аннотация @Override сообщает компилятору, что мы собираемся переопределить метод родительского класса.
+
+@Override
+int overriddenMethod() { }
+@SuppressWarnings - аннотация @SuppressWarnings используется для устранения предупреждений, создаваемых компилятором. 
+В следующем примере мы используем устаревший метод, без аннотации @SuppressWarnings компилятор сгенерирует соответствующее предупреждение.
+
+// говорим компилятору не выводить предупреждение
+@SuppressWarnings("deprecation")
+ void useDeprecatedMethod() {
+     objectOne.deprecatedMethod();
+ }

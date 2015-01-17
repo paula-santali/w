@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="6-allMethods"/>
+	<classpathentry kind="src" path="2-FrameWorkCollection.java.util"/>
+	<classpathentry kind="src" path="4-Input_Output_Stream_Exempls"/>
+	<classpathentry kind="src" path="3-Methods_of_Class_File"/>
+	<classpathentry kind="src" path="5-KodModelsPatterns"/>
+	<classpathentry kind="src" path="7-Calendar_and_Date_classes_methods"/>
+	<classpathentry kind="src" path="8-Annatations"/>
+	<classpathentry kind="src" path="9-Reflections"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="src" path="1-AMIR_Patterns_(ALL)"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

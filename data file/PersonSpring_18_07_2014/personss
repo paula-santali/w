@@ -1,0 +1,11 @@
+AddPerson 10 Vasea 1999
+AddPerson 9 Andrey 1899
+AddPerson 3 Sergei 2010
+AddPerson 7 Alla 2000
+AddPerson 6 Andeey 2011
+AddPerson 4 Olea 1986
+AddPerson 1 Igor 1876
+GetPersonsById 1
+RemovePerson 10
+GetPersonsByYear 2000 2011
+getPersonById 2

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+	 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+  
+   http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd ">
+	<bean id="emf"
+		class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="springHibernate" />
+	</bean>
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+	<tx:annotation-driven transaction-manager="transactionManager" />
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="emf" />
+	</bean>
+	<!-- Model -->
+	
+	<!-- HIBERNATE -->
+	<bean id="model" class="paula.model.PersonInfoSQL" />  
+
+	<!-- List -->
+	 <!--<bean id="model" class="paula.model.PersonInfoList" /> -->
+
+	<!-- Maps -->
+	<!--  <bean id="model" class="paula.model.PersonInfoMaps"/>  -->
+
+	<!-- SQL -->
+	 <!-- <bean id="model" class="paula.model.PersonInfoSQL">
+	 <constructor-arg value="for-URL"/>
+	 <constructor-arg value="root"/>
+	 <constructor-arg value="12345.com"/> 
+	</bean>   -->
+ 
+	<!-- View -->
+	
+	<bean id="view" class="paula.view.PersonInfoConsole" />
+
+
+	<!-- File Requester -->
+	<bean id="requester" class="controller.FileRequester">
+		<constructor-arg value="persons" />
+	</bean>
+
+	<!-- Person Test -->
+	
+	<bean id="test" class="controller.PersonTest">
+		<constructor-arg><ref bean="model" /></constructor-arg>
+		<constructor-arg><ref bean="requester" /></constructor-arg>
+		<constructor-arg><ref bean="view" /></constructor-arg>
+	</bean>
+	
+	        <!-- AOP -->
+	<bean id="person_aop" class="aop.PersonsAOP"/> 
+   
+  <aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+  <aop:config>
+  <aop:aspect ref="person_aop">
+  <aop:pointcut expression="execution(* run*(..))" id="timing_cut"/>
+  <aop:around method="timing" pointcut-ref="timing_cut"/>
+  </aop:aspect>
+  </aop:config>
+           
+</beans>
