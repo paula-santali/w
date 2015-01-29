@@ -1,3 +1,0 @@
-Manager 100
-WageEmployee 500
-SalesPerson 250
